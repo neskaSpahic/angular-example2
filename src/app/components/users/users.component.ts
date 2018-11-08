@@ -9,7 +9,7 @@ import { User } from '../../models/User';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  showExtended: boolean = false;
+  showExtended: boolean = true;
   loaded: boolean = false;
   enableAdd: boolean = true;
  
@@ -29,8 +29,8 @@ export class UsersComponent implements OnInit {
             },
             
             isActive: true,
-      
-            registered: new Date('01/02/2018 02:30:00')
+            registered: new Date('01/02/2018 02:30:00'),
+            hide: true
 
              
         },
@@ -46,7 +46,8 @@ export class UsersComponent implements OnInit {
           },
          
           isActive: false,
-          registered: new Date('04/03/2018 02:30:00')
+          registered: new Date('04/03/2018 02:30:00'),
+          hide: true
         },
     
         {
@@ -61,7 +62,8 @@ export class UsersComponent implements OnInit {
           image: 'http://lorempixel.com/600/600/people/3',
           isActive: true,
           balance: 200,
-          registered: new Date('01/04/2019 02:30:00')
+          registered: new Date('01/04/2019 02:30:00'),
+          hide: true
          }
         ];
 
@@ -73,11 +75,10 @@ export class UsersComponent implements OnInit {
    this.users.push(user);
    }
 
-   fireEvent(e){
-      //console.log("Button Clicked");
-      console.log(e.type);
-   }
-
+   
+// toggleHide(user: User){
+//   user.hide = !user.hide;
+// }
  
 
 
