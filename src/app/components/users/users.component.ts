@@ -8,10 +8,20 @@ import { User } from '../../models/User';
 })
 export class UsersComponent implements OnInit {
 
+  user: User = {
+    firstName: '',
+    lastName: '',
+    age: null,
+    address: {
+      street: '',
+      city: '',
+      state: ''
+    }
+  };
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
-  enableAdd: boolean = true;
+  enableAdd: boolean = false;
   showUserForm: boolean = false;
 
  
@@ -32,9 +42,7 @@ export class UsersComponent implements OnInit {
             
             isActive: true,
             registered: new Date('01/02/2018 02:30:00'),
-            hide: true
-
-             
+            hide: true   
         },
       
         {
@@ -73,8 +81,22 @@ export class UsersComponent implements OnInit {
 
   }
 
-  addUser(user: User){
-   this.users.push(user);
+  addUser(){
+
+   this.user.isActive = true;
+   this.user.registered = new Date();
+   this.users.unshift(this.user);
+
+   this.user = {
+    firstName: '',
+    lastName: '',
+    age: null,
+    address: {
+      street: '',
+      city: '',
+      state: ''
+    }
+  };
    }
 
    onSubmit(e){
