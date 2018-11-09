@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/User';
 
 @Component({
@@ -11,19 +11,14 @@ export class UsersComponent implements OnInit {
   user: User = {
     firstName: '',
     lastName: '',
-    age: null,
-    address: {
-      street: '',
-      city: '',
-      state: ''
-    }
+    email: ''
   };
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
   enableAdd: boolean = false;
   showUserForm: boolean = false;
-
+  @ViewChild('userForm') form: any;
  
   constructor() { }
 
@@ -33,13 +28,7 @@ export class UsersComponent implements OnInit {
         {
             firstName: 'John',
             lastName: 'Doe',
-            age: 38,
-            address: {
-                street: '50 Main st',
-                city: 'Boston',
-                state: 'MA'
-            },
-            
+            email: 'nesiba@gradient.ba',
             isActive: true,
             registered: new Date('01/02/2018 02:30:00'),
             hide: true   
@@ -48,13 +37,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'Kevin',
           lastName: 'Doe',
-          age: 35,
-          address: {
-              street: '50 Main st',
-              city: 'Boston',
-              state: 'MA'
-          },
-         
+          email: 'nesiba@gradient.ba',
           isActive: false,
           registered: new Date('04/03/2018 02:30:00'),
           hide: true
@@ -63,12 +46,7 @@ export class UsersComponent implements OnInit {
         {
           firstName: 'Berbian',
           lastName: 'Doe',
-          age: 34,
-          address: {
-              street: '50 Main st',
-              city: 'Lynn',
-              state: 'BE'
-          },
+          email: 'nesiba@gradient.ba',
           image: 'http://lorempixel.com/600/600/people/3',
           isActive: true,
           balance: 200,
@@ -81,33 +59,38 @@ export class UsersComponent implements OnInit {
 
   }
 
-  addUser(){
+  // addUser(){
 
-   this.user.isActive = true;
-   this.user.registered = new Date();
-   this.users.unshift(this.user);
+  //  this.user.isActive = true;
+  //  this.user.registered = new Date();
+  //  this.users.unshift(this.user);
 
-   this.user = {
-    firstName: '',
-    lastName: '',
-    age: null,
-    address: {
-      street: '',
-      city: '',
-      state: ''
+  //  this.user = {
+  //   firstName: '',
+  //   lastName: '',
+  //   email: 'nesiba@gradient.ba',
+  // };
+  //  }
+
+  //value je User object
+   onSubmit({value, valid}: {value: User, valid: boolean}){
+    if(!valid){
+      console.log('Form is not valid');
+    }else{
+      value.isActive= true;
+      value.registered=new Date();
+      value.hide=true;
+      this.users.unshift(value);
+
+      this.form.reset();
+
     }
-  };
    }
 
-   onSubmit(e){
-     console.log(123);
-     e.preventDefault(); //kada dodamo korisnika da se ne uradi refresh stranice odmah
-   }
-
-   fireEvent(e){
-    console.log(e.type);
-     console.log(e.target.value);
-   }
+  //  fireEvent(e){
+  //   console.log(e.type);
+  //    console.log(e.target.value);
+  //  }
 
    
 // toggleHide(user: User){
