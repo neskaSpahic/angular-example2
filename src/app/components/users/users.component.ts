@@ -12,6 +12,8 @@ export class UsersComponent implements OnInit {
   showExtended: boolean = true;
   loaded: boolean = false;
   enableAdd: boolean = true;
+  showUserForm: boolean = false;
+
  
   constructor() { }
 
@@ -73,6 +75,16 @@ export class UsersComponent implements OnInit {
 
   addUser(user: User){
    this.users.push(user);
+   }
+
+   onSubmit(e){
+     console.log(123);
+     e.preventDefault(); //kada dodamo korisnika da se ne uradi refresh stranice odmah
+   }
+
+   fireEvent(e){
+    console.log(e.type);
+     console.log(e.target.value);
    }
 
    
