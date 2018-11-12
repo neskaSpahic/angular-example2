@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   enableAdd: boolean = false;
   showUserForm: boolean = false;
   @ViewChild('userForm') form: any;
+  data: any;
  
   constructor(private dataService: DataService) { 
 
@@ -26,8 +27,24 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() { //nesto kao konstruktor
     
+    this.dataService.getData().subscribe(data =>{
+      console.log(data);
+    });
+
+    /*sto bi pisali
     this.users = this.dataService.getUsers();
-    this.loaded = true;
+
+
+    */
+
+
+    this.dataService.getUsers().subscribe(users => {
+    
+      this.users= users;
+    
+      this.loaded = true;
+    });
+   
 
   }
 

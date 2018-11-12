@@ -2,12 +2,18 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../models/User';
 
+import { Observable } from "rxjs";
+import { of } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
   users: User[];
+  data: Observable<any>;
+
+
   constructor() { 
 
     this.users = [
@@ -42,10 +48,38 @@ export class DataService {
       ];
   }
 
+
+getData(){
+  this.data = new Observable(observer => {
+    
+      observer.next(1);
+      observer.next(1);
+      observer.next(1);
+      observer.next(1);
+
+   
+
+    setTimeout(() =>{
+      observer.next(2);
+    }, 2000);
+
+    setTimeout(() =>{
+      observer.next(3);
+    }, 3000);
+
+    setTimeout(() =>{
+      observer.next({imee: 'neskic'});
+    }, 4000);
+  });
+
+  return this.data;
+}
+
+
   //metod se vracat value tipa User
-  getUsers(): User[]{
+  getUsers(): Observable<User[]>{
     console.log("Fetching  users from service..");
-    return this.users;
+    return of(this.users);
 
   } 
 
