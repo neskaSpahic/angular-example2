@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/User';
-import { DataService } from '../../services/data.service'
+import { UserService } from '../../services/user.service'
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -21,13 +21,13 @@ export class UsersComponent implements OnInit {
   @ViewChild('userForm') form: any;
   data: any;
  
-  constructor(private dataService: DataService) { 
+  constructor(private userService: UserService) { 
 
   }
 
   ngOnInit() { //nesto kao konstruktor
     
-    this.dataService.getData().subscribe(data =>{
+    this.userService.getData().subscribe(data =>{
       console.log(data);
     });
 
@@ -38,7 +38,7 @@ export class UsersComponent implements OnInit {
     */
 
 
-    this.dataService.getUsers().subscribe(users => {
+    this.userService.getUsers().subscribe(users => {
     
       this.users= users;
     
@@ -58,7 +58,7 @@ export class UsersComponent implements OnInit {
       value.registered=new Date();
       value.hide=true;
 
-      this.dataService.addUser(value);
+      this.userService.addUser(value);
       //this.users.unshift(value);
 
       this.form.reset();
