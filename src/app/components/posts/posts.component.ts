@@ -10,6 +10,17 @@ import { PostService } from '../../services/post.service'
 export class PostsComponent implements OnInit {
 
   posts: Post[];
+
+  post: Post;
+
+  currentPost: Post = {
+    id: 0,
+    title: '',
+    body: ''
+  };
+
+  isEdit: boolean = false;
+
   constructor(private postService: PostService) 
   {
   
@@ -20,5 +31,16 @@ export class PostsComponent implements OnInit {
       this.posts = posts;
     });
   }
+
+  onNewPost(post: Post){
+    this.posts.unshift(post);
+  }
+
+  editPost(post: Post){
+    this.currentPost = post; 
+    this.isEdit = true;
+  }
+
+  
 
 }
