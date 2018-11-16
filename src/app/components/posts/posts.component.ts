@@ -10,8 +10,8 @@ import { PostService } from '../../services/post.service'
 export class PostsComponent implements OnInit {
 
   posts: Post[];
-
   post: Post;
+  isEdit: boolean = false;
 
   currentPost: Post = {
     id: 0,
@@ -19,7 +19,7 @@ export class PostsComponent implements OnInit {
     body: ''
   };
 
-  isEdit: boolean = false;
+  
 
   constructor(private postService: PostService) 
   {
@@ -41,6 +41,36 @@ export class PostsComponent implements OnInit {
     this.isEdit = true;
   }
 
-  
+  onUpdatedPost(post: Post){
+    this.posts.forEach((cur, index) => {
+      console.log(index);
+      //console.log(cur);
+      if(post.id ===  cur.id) {
+        this.posts.splice(index,1);
+        this.posts.unshift(post);
+        this.isEdit=false;
+        this.currentPost= {
+          id: 0,
+          title: '',
+          body: ''
+        };
 
+      }
+    });
+  }
+
+  removePost(post: Post){
+    if(confirm('Are You Sure')){
+      this.postService.removePost(post.id).subscribe(() => {
+        this.posts.forEach((cur, index) => {
+          if(post.id ===  cur.id) {
+            this.posts.splice(index,1);
+    
+          }
+      });
+    });
+  }
+
+  
+  }
 }
